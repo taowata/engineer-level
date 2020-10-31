@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import io.github.taowata.engineerlevel.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
 
@@ -17,12 +18,14 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
-    }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = SearchFragment()
+        val binding = FragmentSearchBinding.inflate(inflater)
+
+        // DataBindingにFragmentのライフサイクルでLiveDataのオブザーブを可能にする
+        binding.lifecycleOwner = this
+
+        binding.viewModel = viewModel
+
+        return binding.root
     }
 }
