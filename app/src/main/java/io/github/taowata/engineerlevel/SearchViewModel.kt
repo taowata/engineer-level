@@ -15,6 +15,11 @@ class SearchViewModel : ViewModel() {
     val response: LiveData<String>
         get() = _response
 
+    // viewModel初期化時に通信
+    init {
+        getGitHubUserProperties()
+    }
+
     private fun getGitHubUserProperties() {
         GitHubApi.retrofitService.getProperties().enqueue(
             object: Callback<String> {
