@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "496085454434",
+    "firebase_url": "https://engineer-level-app.firebaseio.com",
+    "project_id": "engineer-level-app",
+    "storage_bucket": "engineer-level-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496085454434:android:f064005c411bc1e56a8b3b",
+        "android_client_info": {
+          "package_name": "io.github.taowata.engineerlevel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "496085454434-3r1b6u1r5k5qcjkjbnsuo2rt6iupsupa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmSufQmkMQ6tos35rNu0OTVHYohWEEKBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "496085454434-3r1b6u1r5k5qcjkjbnsuo2rt6iupsupa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

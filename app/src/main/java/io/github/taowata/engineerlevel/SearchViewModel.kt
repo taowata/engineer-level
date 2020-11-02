@@ -3,10 +3,10 @@ package io.github.taowata.engineerlevel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import io.github.taowata.engineerlevel.network.GitHubApi
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class SearchViewModel : ViewModel() {
 
@@ -21,17 +21,14 @@ class SearchViewModel : ViewModel() {
     }
 
     private fun getGitHubUserProperties() {
-        GitHubApi.retrofitService.getProperties().enqueue(
-            object: Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    _response.value = response.body()
-                }
-
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    _response.value = "Failure: " + t.message
-                }
+        viewModelScope.launch {
+            try {
+                val gitHubUser = GitHubApi.retrofitService.getUser()
+                _response.value = "Success: We got @${gitHubUser.userName}'s information"
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
             }
-        )
+        }
     }
 
 }
