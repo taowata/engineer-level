@@ -20,6 +20,9 @@ private val retrofit = Retrofit.Builder()
 interface GitHubApiService {
     @GET("users/taowata")
     suspend fun getUser(): GitHubUser
+
+    @GET("users/taowata/repos")
+    suspend fun getRepositories(): List<Repository>
 }
 
 object GitHubApi {

@@ -24,7 +24,8 @@ class SearchViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val gitHubUser = GitHubApi.retrofitService.getUser()
-                _response.value = "Success: We got @${gitHubUser.userName}'s information"
+                val repositories = GitHubApi.retrofitService.getRepositories()
+                _response.value = "Success: @${gitHubUser.userName} has ${repositories.size} repositories"
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }
