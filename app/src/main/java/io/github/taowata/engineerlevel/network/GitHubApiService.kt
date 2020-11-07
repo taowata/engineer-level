@@ -2,9 +2,11 @@ package io.github.taowata.engineerlevel.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import io.github.taowata.engineerlevel.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Path
 
 private const val BASE_URL = "https://api.github.com/"
@@ -20,16 +22,20 @@ private val retrofit = Retrofit.Builder()
 
 interface GitHubApiService {
     @GET("users/{userName}")
+    @Headers("Authorization: token ${BuildConfig.ACCESS_TOKEN}")
     suspend fun getUser(@Path("userName") userName: String): GitHubUser
 
     @GET("users/{userName}/repos")
+    @Headers("Authorization: token ${BuildConfig.ACCESS_TOKEN}")
     suspend fun getRepositories(@Path("userName") userName: String): List<Repository>
 
     // 特定レポジトリの1年間のコミット数を取得する
     @GET("repos/{userName}/{repoName}/stats/participation")
+    @Headers("Authorization: token ${BuildConfig.ACCESS_TOKEN}")
     suspend fun getCommitList(
         @Path("userName") userName: String,
-        @Path("repoName") repoName: String): CommitList
+        @Path("repoName") repoName: String
+    ): CommitList
 }
 
 object GitHubApi {
