@@ -5,6 +5,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 private const val BASE_URL = "https://api.github.com/"
 
@@ -18,11 +19,14 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface GitHubApiService {
-    @GET("users/taowata")
-    suspend fun getUser(): GitHubUser
+    @GET("users/{userName}")
+    suspend fun getUser(@Path("userName") userName: String): GitHubUser
 
-    @GET("users/taowata/repos")
-    suspend fun getRepositories(): List<Repository>
+    @GET("users/{userName}/repos")
+    suspend fun getRepositories(@Path("userName")userName: String): List<Repository>
+
+    @GET("{repositoryName}/")
+    suspend fun getCommitNumber(): String
 }
 
 object GitHubApi {
