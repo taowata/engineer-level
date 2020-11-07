@@ -23,13 +23,17 @@ interface GitHubApiService {
     suspend fun getUser(@Path("userName") userName: String): GitHubUser
 
     @GET("users/{userName}/repos")
-    suspend fun getRepositories(@Path("userName")userName: String): List<Repository>
+    suspend fun getRepositories(@Path("userName") userName: String): List<Repository>
 
-    @GET("{repositoryName}/")
-    suspend fun getCommitNumber(): String
+    // 特定レポジトリの1年間のコミット数を取得する
+    @GET("repos/{userName}/{repoName}/stats/participation")
+    suspend fun getCommitList(
+        @Path("userName") userName: String,
+        @Path("repoName") repoName: String): CommitList
 }
 
 object GitHubApi {
     val retrofitService : GitHubApiService by lazy {
-        retrofit.create(GitHubApiService::class.java) }
+        retrofit.create(GitHubApiService::class.java)
+    }
 }
