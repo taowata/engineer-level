@@ -35,11 +35,11 @@ class SearchViewModel : ViewModel() {
                 // コミット数の取得
                 var allCommitNumber = 0
 
-                for (repository in repositories) {
-                    val repoName = repository.name
-                    val commitList: CommitList = GitHubApi.retrofitService.getCommitList(userName, repoName)
-                    allCommitNumber += commitList.commitList.sum()
-                }
+//                for (repository in repositories) {
+//                    val repoName = repository.name
+//                    val commitList: CommitList = GitHubApi.retrofitService.getCommitList(userName, repoName)
+//                    allCommitNumber += commitList.commitList.sum()
+//                }
                 _response.value = "Success: @${gitHubUser.userName} has ${repositories.size} repositories and $allCommitNumber Commits"
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
