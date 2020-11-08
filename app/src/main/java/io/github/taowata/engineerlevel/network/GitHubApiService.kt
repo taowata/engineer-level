@@ -34,8 +34,16 @@ interface GitHubApiService {
     @Headers("Authorization: token ${BuildConfig.ACCESS_TOKEN}")
     suspend fun getCommitList(
         @Path("userName") userName: String,
-        @Path("repoName") repoName: String
+        @Path("repoName") repoName: String,
     ): CommitList
+
+    // 特定リポジトリのスター数(スターしたユーザー数)を取得する
+    @GET("repos/{userName}/{repoName}/stargazers")
+    @Headers("Authorization: token ${BuildConfig.ACCESS_TOKEN}")
+    suspend fun getStarGazerList(
+        @Path("userName") userName: String,
+        @Path("repoName") repoName: String,
+    ): List<StarGazer>
 }
 
 object GitHubApi {
