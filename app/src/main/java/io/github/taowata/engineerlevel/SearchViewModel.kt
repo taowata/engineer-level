@@ -15,12 +15,13 @@ class SearchViewModel : ViewModel() {
 
     var commitNumber: Int = 0
     var starNumber: Int = 0
-    var languageAndBytes: MutableMap<String, Long> = mutableMapOf()
     var ffRatio: Double = 0.0
 
+    private val _languageAndBytes = MutableLiveData<MutableMap<String, Long>>()
+    val languageAndBytes: LiveData<MutableMap<String, Long>>
+        get() = _languageAndBytes
 
     private val _response = MutableLiveData<String>()
-
     val response: LiveData<String>
         get() = _response
 
@@ -45,7 +46,7 @@ class SearchViewModel : ViewModel() {
 
                 commitNumber = allCommitNumber
                 starNumber = allStarNumber
-                languageAndBytes = languageMap
+                _languageAndBytes.value = languageMap
                 ffRatio = gitHubUser.followers.toDouble() / gitHubUser.following
 
             } catch (e: Exception) {
