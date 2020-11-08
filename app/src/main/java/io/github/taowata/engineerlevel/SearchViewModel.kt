@@ -13,6 +13,12 @@ import java.lang.Exception
 
 class SearchViewModel : ViewModel() {
 
+    var commitNumber: Int = 0
+    var starNumber: Int = 0
+    var languageAndBytes: MutableMap<String, Long> = mutableMapOf()
+    var ffRatio: Double = 0.0
+
+
     private val _response = MutableLiveData<String>()
 
     val response: LiveData<String>
@@ -36,6 +42,12 @@ class SearchViewModel : ViewModel() {
                 _response.value =
                     "Success: @${gitHubUser.userName} has ${repositories.size} repositories and $allCommitNumber Commits, $allStarNumber Stars." +
                             "@${gitHubUser.userName}'s languages: $languageMap"
+
+                commitNumber = allCommitNumber
+                starNumber = allStarNumber
+                languageAndBytes = languageMap
+                ffRatio = gitHubUser.followers.toDouble() / gitHubUser.following
+
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }
