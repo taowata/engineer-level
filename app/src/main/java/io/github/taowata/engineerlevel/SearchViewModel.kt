@@ -13,25 +13,10 @@ import java.lang.Exception
 
 class SearchViewModel : ViewModel() {
 
-    private val _commitNumber = MutableLiveData<Int>()
-    private val commitNumber: LiveData<Int>
-        get() = _commitNumber
-
-    private val _starNumber = MutableLiveData<Int>()
-    private val starNumber: LiveData<Int>
-        get() = _starNumber
-
-    private val _ffRatio = MutableLiveData<Double>()
-    private val ffRatio: LiveData<Double>
-        get() = _ffRatio
-
-    val userProperties: LiveData<Triple<Int, Int, Double>>
-        get(): LiveData<Triple<Int, Int, Double>> {
-            val triple: Triple<Int, Int, Double> = Triple(commitNumber.value ?: 0, starNumber.value ?: 0, ffRatio.value ?: 0.0)
-            val mutableLiveData = MutableLiveData<Triple<Int, Int, Double>>()
-            mutableLiveData.value = triple
-            return mutableLiveData
-        }
+    // コミット数、スター数、FF比
+    private val _userProperties = MutableLiveData<Triple<Int, Int, Float>>()
+    val userProperties: LiveData<Triple<Int, Int, Float>>
+        get() = _userProperties
 
     private val _languageAndBytes = MutableLiveData<MutableMap<String, Long>>()
     val languageAndBytes: LiveData<MutableMap<String, Long>>
@@ -49,7 +34,7 @@ class SearchViewModel : ViewModel() {
     private fun getGitHubUserProperties() {
         viewModelScope.launch {
             try {
-                val userName = "Ossamoon"
+                val userName = "koooootake"
                 val gitHubUser = GitHubApi.retrofitService.getUser(userName)
                 val repositories = GitHubApi.retrofitService.getRepositories(userName)
 
@@ -60,10 +45,14 @@ class SearchViewModel : ViewModel() {
                     "Success: @${gitHubUser.userName} has ${repositories.size} repositories and $allCommitNumber Commits, $allStarNumber Stars." +
                             "@${gitHubUser.userName}'s languages: $languageMap"
 
-                _commitNumber.value = allCommitNumber
-                _starNumber.value = allStarNumber
+                // 0で割らないための対策
+                val following = if(gitHubUser.following == 0) 1 else gitHubUser.following
+                val ffRatio = gitHubUser.followers.toFloat() / following
+
+                val triple: Triple<Int, Int, Float> = Triple(allCommitNumber, allStarNumber, ffRatio)
+                _userProperties.value = triple
+
                 _languageAndBytes.value = languageMap
-                _ffRatio.value = gitHubUser.followers.toDouble() / gitHubUser.following
 
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
@@ -77,6 +66,7 @@ class SearchViewModel : ViewModel() {
         var allCommitNumber = 0
         var allStarNumber = 0
         val languageMap: MutableMap<String, Long> = mutableMapOf()
+
         for (repository in repositories) {
             val repoName = repository.name
 
