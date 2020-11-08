@@ -13,9 +13,25 @@ import java.lang.Exception
 
 class SearchViewModel : ViewModel() {
 
-    var commitNumber: Int = 0
-    var starNumber: Int = 0
-    var ffRatio: Double = 0.0
+    private val _commitNumber = MutableLiveData<Int>()
+    private val commitNumber: LiveData<Int>
+        get() = _commitNumber
+
+    private val _starNumber = MutableLiveData<Int>()
+    private val starNumber: LiveData<Int>
+        get() = _starNumber
+
+    private val _ffRatio = MutableLiveData<Double>()
+    private val ffRatio: LiveData<Double>
+        get() = _ffRatio
+
+    val userProperties: LiveData<Triple<Int, Int, Double>>
+        get(): LiveData<Triple<Int, Int, Double>> {
+            val triple: Triple<Int, Int, Double> = Triple(commitNumber.value ?: 0, starNumber.value ?: 0, ffRatio.value ?: 0.0)
+            val mutableLiveData = MutableLiveData<Triple<Int, Int, Double>>()
+            mutableLiveData.value = triple
+            return mutableLiveData
+        }
 
     private val _languageAndBytes = MutableLiveData<MutableMap<String, Long>>()
     val languageAndBytes: LiveData<MutableMap<String, Long>>
@@ -44,10 +60,10 @@ class SearchViewModel : ViewModel() {
                     "Success: @${gitHubUser.userName} has ${repositories.size} repositories and $allCommitNumber Commits, $allStarNumber Stars." +
                             "@${gitHubUser.userName}'s languages: $languageMap"
 
-                commitNumber = allCommitNumber
-                starNumber = allStarNumber
+                _commitNumber.value = allCommitNumber
+                _starNumber.value = allStarNumber
                 _languageAndBytes.value = languageMap
-                ffRatio = gitHubUser.followers.toDouble() / gitHubUser.following
+                _ffRatio.value = gitHubUser.followers.toDouble() / gitHubUser.following
 
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
