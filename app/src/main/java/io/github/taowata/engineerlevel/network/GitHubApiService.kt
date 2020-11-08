@@ -44,6 +44,14 @@ interface GitHubApiService {
         @Path("userName") userName: String,
         @Path("repoName") repoName: String,
     ): List<StarGazer>
+
+    // 特定リポジトリの言語ごとのByte数を取得
+    @GET("repos/{userName}/{repoName}/languages")
+    @Headers("Authorization: token ${BuildConfig.ACCESS_TOKEN}")
+    suspend fun getLanguageBytes(
+        @Path("userName") userName: String,
+        @Path("repoName") repoName: String,
+    ): MutableMap<String, Long>
 }
 
 object GitHubApi {
