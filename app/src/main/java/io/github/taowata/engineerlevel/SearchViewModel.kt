@@ -4,27 +4,26 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.github.taowata.engineerlevel.network.CommitList
-import io.github.taowata.engineerlevel.network.GitHubApi
-import io.github.taowata.engineerlevel.network.Repository
-import io.github.taowata.engineerlevel.network.StarGazer
+import io.github.taowata.engineerlevel.network.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class SearchViewModel : ViewModel() {
 
-    // コミット数、スター数、FF比
-    private val _userProperties = MutableLiveData<Triple<Int, Int, Float>>()
-    val userProperties: LiveData<Triple<Int, Int, Float>>
+    // コミット数、スター数、フォロワー数
+    private val _userProperties = MutableLiveData<Triple<Int, Int, Int>>()
+    val userProperties: LiveData<Triple<Int, Int, Int>>
         get() = _userProperties
 
     private val _languageAndBytes = MutableLiveData<MutableMap<String, Long>>()
     val languageAndBytes: LiveData<MutableMap<String, Long>>
         get() = _languageAndBytes
 
-    private val _response = MutableLiveData<String>()
-    val response: LiveData<String>
-        get() = _response
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage = _errorMessage
+
+    private val _gitHubUser = MutableLiveData<GitHubUser>()
+    val gitHubUser = _gitHubUser
 
     // viewModel初期化時に通信
     init {
@@ -34,28 +33,24 @@ class SearchViewModel : ViewModel() {
     private fun getGitHubUserProperties() {
         viewModelScope.launch {
             try {
-                val userName = "koooootake"
+                val userName = "taowata"
                 val gitHubUser = GitHubApi.retrofitService.getUser(userName)
+                _gitHubUser.value = gitHubUser
                 val repositories = GitHubApi.retrofitService.getRepositories(userName)
 
                 // Triple<Int, Int, MutableMap<String, Long>が返される
                 val (allCommitNumber, allStarNumber, languageMap) = calculateUserProperties(userName, repositories)
 
-                _response.value =
-                    "Success: @${gitHubUser.userName} has ${repositories.size} repositories and $allCommitNumber Commits, $allStarNumber Stars." +
-                            "@${gitHubUser.userName}'s languages: $languageMap"
-
                 // 0で割らないための対策
-                val following = if(gitHubUser.following == 0) 1 else gitHubUser.following
-                val ffRatio = gitHubUser.followers.toFloat() / following
+                val followers = gitHubUser.followers
 
-                val triple: Triple<Int, Int, Float> = Triple(allCommitNumber, allStarNumber, ffRatio)
+                val triple: Triple<Int, Int, Int> = Triple(allCommitNumber, allStarNumber, followers)
                 _userProperties.value = triple
 
                 _languageAndBytes.value = languageMap
 
             } catch (e: Exception) {
-                _response.value = "Failure: ${e.message}"
+                _errorMessage.value = "Failure: ${e.message}"
             }
         }
     }
