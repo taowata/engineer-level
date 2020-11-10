@@ -1,4 +1,4 @@
-package io.github.taowata.engineerlevel.network
+package io.github.taowata.engineerlevel
 
 import android.graphics.Color
 import android.util.Log

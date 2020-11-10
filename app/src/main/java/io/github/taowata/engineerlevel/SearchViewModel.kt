@@ -33,7 +33,7 @@ class SearchViewModel : ViewModel() {
     private fun getGitHubUserProperties() {
         viewModelScope.launch {
             try {
-                val userName = "taowata"
+                val userName = "koooootake"
                 val gitHubUser = GitHubApi.retrofitService.getUser(userName)
                 _gitHubUser.value = gitHubUser
                 val repositories = GitHubApi.retrofitService.getRepositories(userName)
