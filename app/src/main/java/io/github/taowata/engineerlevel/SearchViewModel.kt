@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.taowata.engineerlevel.network.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.Exception
 
 class SearchViewModel : ViewModel() {
@@ -23,7 +25,10 @@ class SearchViewModel : ViewModel() {
     val errorMessage = _errorMessage
 
     private val _gitHubUser = MutableLiveData<GitHubUser>()
-    val gitHubUser = _gitHubUser
+    val gitHubUser: LiveData<GitHubUser> = _gitHubUser
+
+    private val _contributions = MutableLiveData<String>()
+    val contributions: LiveData<String> = _contributions
 
     // viewModel初期化時に通信
     init {
@@ -33,21 +38,24 @@ class SearchViewModel : ViewModel() {
     private fun getGitHubUserProperties() {
         viewModelScope.launch {
             try {
-                val userName = "koooootake"
+                val userName = "taowata"
                 val gitHubUser = GitHubApi.retrofitService.getUser(userName)
                 _gitHubUser.value = gitHubUser
                 val repositories = GitHubApi.retrofitService.getRepositories(userName)
 
-                // Triple<Int, Int, MutableMap<String, Long>が返される
-                val (allCommitNumber, allStarNumber, languageMap) = calculateUserProperties(userName, repositories)
+                _contributions.value =  withContext(Dispatchers.IO) {
+                    return@withContext GitHubHomeHtmlParser.getContributionNumber("https://github.com/taowata")
+                }
+                    // Triple<Int, Int, MutableMap<String, Long>が返される
+                    val (allCommitNumber, allStarNumber, languageMap) = calculateUserProperties(userName, repositories)
 
-                // 0で割らないための対策
-                val followers = gitHubUser.followers
+                    // 0で割らないための対策
+                    val followers = gitHubUser.followers
 
-                val triple: Triple<Int, Int, Int> = Triple(allCommitNumber, allStarNumber, followers)
-                _userProperties.value = triple
+                    val triple: Triple<Int, Int, Int> = Triple(allCommitNumber, allStarNumber, followers)
+                    _userProperties.value = triple
 
-                _languageAndBytes.value = languageMap
+                    _languageAndBytes.value = languageMap
 
             } catch (e: Exception) {
                 _errorMessage.value = "Failure: ${e.message}"
