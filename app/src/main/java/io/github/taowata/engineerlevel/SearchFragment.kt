@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.firebase.ui.auth.AuthUI
 import io.github.taowata.engineerlevel.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
@@ -37,6 +39,14 @@ class SearchFragment : Fragment() {
         // 円グラフの描画
         viewModel.languageAndBytes.observe(viewLifecycleOwner) {
             Drawer.drawBarChart(binding.barChart, it)
+        }
+
+        binding.logoutButton.setOnClickListener {
+            AuthUI.getInstance()
+                .signOut(requireContext())
+                .addOnCompleteListener {
+                    view.findNavController().navigate(R.id.action_searchFragment_to_authFragment)
+                }
         }
 
     }
