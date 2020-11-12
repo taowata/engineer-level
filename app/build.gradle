@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -93,3 +92,5 @@ dependencies {
     // Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
 }
+
+apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
