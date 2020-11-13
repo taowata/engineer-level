@@ -32,22 +32,16 @@ class SearchViewModel : ViewModel() {
     val errorMessage = _errorMessage
 
 
-    // viewModel初期化時に通信
-    init {
-        getGitHubUserProperties()
-    }
-
-    private fun getGitHubUserProperties() {
+    fun getGitHubUserProperties(userName: String) {
         viewModelScope.launch {
             try {
-                val userName = "taowata"
                 val gitHubUser = GitHubApi.retrofitService.getUser(userName)
                 _gitHubUser.value = gitHubUser
                 val repositories = GitHubApi.retrofitService.getRepositories(userName)
 
                 // コントリビューション数のスクレイピング
                 _contributions.value =  withContext(Dispatchers.IO) {
-                    return@withContext GitHubHomeHtmlParser.getContributionNumber("https://github.com/taowata")
+                    return@withContext GitHubHomeHtmlParser.getContributionNumber("https://github.com/$userName")
                 }
                 // フォロワー数の取得
                 _followers.value = gitHubUser.followers

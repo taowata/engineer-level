@@ -42,7 +42,13 @@ class SearchFragment : Fragment() {
         viewModel.languageAndBytes.observe(viewLifecycleOwner) {
             Drawer.drawBarChart(binding.barChart, it)
         }
+        // 検索ボタン
+        binding.searchButton.setOnClickListener {
+            val userName: String = binding.editTextGithubId.text.toString()
+            viewModel.getGitHubUserProperties(userName)
+        }
 
+        // ログアウトボタン
         binding.logoutButton.setOnClickListener {
             AuthUI.getInstance()
                 .signOut(requireContext())
