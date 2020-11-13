@@ -75,6 +75,7 @@ class SearchViewModel : ViewModel() {
             // スター数の計算
             val starGazerList: List<StarGazer> =
                 GitHubApi.retrofitService.getStarGazerList(userName, repoName)
+            Log.i("tag", starGazerList.toString())
             allStarNumber += starGazerList.size
 
             // 使用言語のByte数の計算

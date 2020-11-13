@@ -25,7 +25,7 @@ interface GitHubApiService {
     @Headers("Authorization: token ${BuildConfig.ACCESS_TOKEN}")
     suspend fun getUser(@Path("userName") userName: String): GitHubUser
 
-    @GET("users/{userName}/repos")
+    @GET("users/{userName}/repos?per_page=100")
     @Headers("Authorization: token ${BuildConfig.ACCESS_TOKEN}")
     suspend fun getRepositories(@Path("userName") userName: String): List<Repository>
 
@@ -38,7 +38,7 @@ interface GitHubApiService {
     ): CommitList
 
     // 特定リポジトリのスター数(スターしたユーザー数)を取得する
-    @GET("repos/{userName}/{repoName}/stargazers")
+    @GET("repos/{userName}/{repoName}/stargazers?per_page=100")
     @Headers("Authorization: token ${BuildConfig.ACCESS_TOKEN}")
     suspend fun getStarGazerList(
         @Path("userName") userName: String,
