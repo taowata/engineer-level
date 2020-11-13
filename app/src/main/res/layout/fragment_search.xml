@@ -97,7 +97,7 @@
             android:id="@+id/follower_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.userProperties.third.toString()}"
+            android:text="@{viewModel.followers.toString()}"
             app:layout_constraintBottom_toTopOf="@+id/language_text"
             app:layout_constraintEnd_toEndOf="@+id/follower_text"
             app:layout_constraintStart_toStartOf="@+id/follower_text"
@@ -108,7 +108,7 @@
             android:id="@+id/star_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.userProperties.second.toString()}"
+            android:text="@{viewModel.stars.toString()}"
             app:layout_constraintEnd_toEndOf="@+id/star_text"
             app:layout_constraintStart_toStartOf="@+id/star_text"
             app:layout_constraintTop_toTopOf="@+id/follower_number" />

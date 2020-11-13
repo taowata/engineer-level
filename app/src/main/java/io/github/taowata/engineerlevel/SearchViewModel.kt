@@ -12,10 +12,17 @@ import java.lang.Exception
 
 class SearchViewModel : ViewModel() {
 
-    // コミット数、スター数、フォロワー数
-    private val _userProperties = MutableLiveData<Triple<Int, Int, Int>>()
-    val userProperties: LiveData<Triple<Int, Int, Int>>
-        get() = _userProperties
+    private val _gitHubUser = MutableLiveData<GitHubUser>()
+    val gitHubUser: LiveData<GitHubUser> = _gitHubUser
+
+    private val _contributions = MutableLiveData<String>()
+    val contributions: LiveData<String> = _contributions
+
+    private val _followers = MutableLiveData<Int>()
+    val followers: LiveData<Int> = _followers
+
+    private val _stars = MutableLiveData<Int>()
+    val stars: LiveData<Int> = _stars
 
     private val _languageAndBytes = MutableLiveData<MutableMap<String, Long>>()
     val languageAndBytes: LiveData<MutableMap<String, Long>>
@@ -24,11 +31,6 @@ class SearchViewModel : ViewModel() {
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage = _errorMessage
 
-    private val _gitHubUser = MutableLiveData<GitHubUser>()
-    val gitHubUser: LiveData<GitHubUser> = _gitHubUser
-
-    private val _contributions = MutableLiveData<String>()
-    val contributions: LiveData<String> = _contributions
 
     // viewModel初期化時に通信
     init {
@@ -43,19 +45,18 @@ class SearchViewModel : ViewModel() {
                 _gitHubUser.value = gitHubUser
                 val repositories = GitHubApi.retrofitService.getRepositories(userName)
 
+                // コントリビューション数のスクレイピング
                 _contributions.value =  withContext(Dispatchers.IO) {
                     return@withContext GitHubHomeHtmlParser.getContributionNumber("https://github.com/taowata")
                 }
-                    // Triple<Int, Int, MutableMap<String, Long>が返される
-                    val (allCommitNumber, allStarNumber, languageMap) = calculateUserProperties(userName, repositories)
+                // フォロワー数の取得
+                _followers.value = gitHubUser.followers
 
-                    // 0で割らないための対策
-                    val followers = gitHubUser.followers
+                // スター数、使用言語を計算
+                val (allStars, languageMap) = calculateUserProperties(userName, repositories)
 
-                    val triple: Triple<Int, Int, Int> = Triple(allCommitNumber, allStarNumber, followers)
-                    _userProperties.value = triple
-
-                    _languageAndBytes.value = languageMap
+                _stars.value = allStars
+                _languageAndBytes.value = languageMap
 
             } catch (e: Exception) {
                 _errorMessage.value = "Failure: ${e.message}"
@@ -63,19 +64,16 @@ class SearchViewModel : ViewModel() {
         }
     }
 
+
     private suspend fun calculateUserProperties(
         userName: String,
-        repositories: List<Repository>): Triple<Int, Int, MutableMap<String, Long>> {
-        var allCommitNumber = 0
+        repositories: List<Repository>): Pair<Int, MutableMap<String, Long>> {
+
         var allStarNumber = 0
         val languageMap: MutableMap<String, Long> = mutableMapOf()
 
         for (repository in repositories) {
             val repoName = repository.name
-
-            // コミット数の計算
-            val commitList: CommitList = GitHubApi.retrofitService.getCommitList(userName, repoName)
-            allCommitNumber += commitList.commitList.sum()
 
             // スター数の計算
             val starGazerList: List<StarGazer> =
@@ -98,6 +96,6 @@ class SearchViewModel : ViewModel() {
 
         }
 
-        return Triple(allCommitNumber, allStarNumber, languageMap)
+        return Pair(allStarNumber, languageMap)
     }
 }
