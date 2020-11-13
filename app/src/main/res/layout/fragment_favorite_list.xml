@@ -13,15 +13,39 @@
         android:layout_height="match_parent"
         tools:context=".FavoriteListFragment">
 
-        <TextView
-            android:id="@+id/textView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/engineer_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="@string/hello_blank_fragment"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/vertical_right_guideline"
+            app:layout_constraintStart_toStartOf="@+id/vertical_left_guideline"
+            app:layout_constraintTop_toTopOf="@+id/horizontal_top_guideline"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_left_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_right_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_top_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

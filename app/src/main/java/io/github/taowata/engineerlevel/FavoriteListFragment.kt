@@ -20,7 +20,6 @@ class FavoriteListFragment : Fragment() {
 
         binding = FragmentFavoriteListBinding.inflate(inflater)
 
-        val textView = binding.textView
 
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
@@ -30,8 +29,6 @@ class FavoriteListFragment : Fragment() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    val text = textView.text.toString() + document.data["name"]
-                    textView.text = text
                 }
             }
 
