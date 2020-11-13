@@ -89,6 +89,9 @@ dependencies {
 
     // Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
+
+    //Firebase Firestore
+    implementation 'com.google.firebase:firebase-firestore:22.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
