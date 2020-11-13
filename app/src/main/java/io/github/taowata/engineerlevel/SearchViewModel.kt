@@ -1,9 +1,11 @@
 package io.github.taowata.engineerlevel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.FirebaseFirestore
 import io.github.taowata.engineerlevel.network.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -92,4 +94,24 @@ class SearchViewModel : ViewModel() {
 
         return Pair(allStarNumber, languageMap)
     }
+
+    fun addGitHubUserToFireStore() {
+        val db = FirebaseFirestore.getInstance()
+        val engineer = hashMapOf(
+            "name" to gitHubUser.value?.userName,
+            "contributions" to contributions.value,
+            "followers" to followers.value,
+            "stars" to stars.value,
+            "languagesAndBytes" to languageAndBytes.value
+        )
+        db.collection("engineers").document(engineer["name"].toString())
+            .set(engineer)
+            .addOnSuccessListener { documentReference ->
+                Log.d("tag", "DocumentSnapshot added with ID: $documentReference")
+            }
+            .addOnFailureListener { e ->
+                Log.w("tag", "Error adding document", e)
+            }
+    }
+
 }

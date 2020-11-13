@@ -59,29 +59,8 @@ class SearchFragment : Fragment() {
         }
 
         binding.floatingActionButton.setOnClickListener {
-            val db = FirebaseFirestore.getInstance()
-            val engineer = hashMapOf(
-                "name" to "taowata",
-                "contributions" to 923,
-                "followers" to 2,
-                "stars" to 1,
-                "languagesAndBytes" to hashMapOf(
-                    "JavaScript" to 2972783,
-                    "Kotlin" to 671871,
-                    "HTML" to 222565,
-                    "CSS" to 27053,
-                )
-            )
-            db.collection("engineers").document(engineer["name"].toString())
-                .set(engineer)
-                .addOnSuccessListener { documentReference ->
-                    Log.d("tag", "DocumentSnapshot added with ID: $documentReference")
-                }
-                .addOnFailureListener { e ->
-                    Log.w("tag", "Error adding document", e)
-                }
+            viewModel.addGitHubUserToFireStore()
         }
-
     }
 
 }
