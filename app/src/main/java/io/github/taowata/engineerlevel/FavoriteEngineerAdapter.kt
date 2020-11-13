@@ -1,6 +1,5 @@
 package io.github.taowata.engineerlevel
 
-import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

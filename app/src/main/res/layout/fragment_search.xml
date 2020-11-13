@@ -88,7 +88,7 @@
             android:id="@+id/contribution_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.contributions}"
+            android:text="@{viewModel.contributions.toString()}"
             app:layout_constraintEnd_toEndOf="@+id/contribution_text"
             app:layout_constraintStart_toStartOf="@+id/contribution_text"
             app:layout_constraintTop_toTopOf="@+id/follower_number" />

@@ -18,8 +18,8 @@ class SearchViewModel : ViewModel() {
     private val _gitHubUser = MutableLiveData<GitHubUser>()
     val gitHubUser: LiveData<GitHubUser> = _gitHubUser
 
-    private val _contributions = MutableLiveData<String>()
-    val contributions: LiveData<String> = _contributions
+    private val _contributions = MutableLiveData<Int>()
+    val contributions: LiveData<Int> = _contributions
 
     private val _followers = MutableLiveData<Int>()
     val followers: LiveData<Int> = _followers
