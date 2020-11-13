@@ -141,6 +141,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/move_to_favorite_list_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="お気に入りエンジニア"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
             android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

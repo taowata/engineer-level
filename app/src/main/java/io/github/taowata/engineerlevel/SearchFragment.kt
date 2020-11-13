@@ -1,7 +1,6 @@
 package io.github.taowata.engineerlevel
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.firebase.ui.auth.AuthUI
-import com.google.firebase.firestore.FirebaseFirestore
 import io.github.taowata.engineerlevel.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
@@ -60,6 +58,11 @@ class SearchFragment : Fragment() {
 
         binding.floatingActionButton.setOnClickListener {
             viewModel.addGitHubUserToFireStore()
+        }
+
+        binding.moveToFavoriteListButton.setOnClickListener {
+            // お気に入りリストへ遷移
+            view.findNavController().navigate(R.id.action_searchFragment_to_favoriteListFragment)
         }
     }
 

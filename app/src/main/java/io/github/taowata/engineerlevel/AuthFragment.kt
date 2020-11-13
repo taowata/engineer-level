@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
-import com.google.firebase.auth.FirebaseAuth
 
 class AuthFragment : Fragment() {
 
@@ -38,11 +37,9 @@ class AuthFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
 
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
-                val user = FirebaseAuth.getInstance().currentUser
                 val view = requireView()
                 view.findNavController().navigate(R.id.action_authFragment_to_searchFragment)
 
