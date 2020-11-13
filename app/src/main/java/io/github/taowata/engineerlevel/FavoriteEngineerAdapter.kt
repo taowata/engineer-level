@@ -14,7 +14,7 @@ class FavoriteEngineerAdapter(
 
     class FavoriteEngineerViewHolder(private val binding: FavoriteEngineerItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Engineer, onItemClick: (Engineer) -> Unit) {
-            binding.engineerName.text = item.name
+            binding.engineer = item
             binding.executePendingBindings()
         }
         companion object {

@@ -96,6 +96,9 @@ dependencies {
     // RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
+    // FragmentKTX
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
+
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin
