@@ -37,5 +37,9 @@
         android:id="@+id/detailFragment"
         android:name="io.github.taowata.engineerlevel.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="engineer"
+            app:argType="io.github.taowata.engineerlevel.data.Engineer" />
+    </fragment>
 </navigation>
