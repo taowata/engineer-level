@@ -101,6 +101,9 @@ dependencies {
     // FragmentKTX
     implementation "androidx.fragment:fragment-ktx:1.2.5"
 
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$version_lifecycle"
+
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin

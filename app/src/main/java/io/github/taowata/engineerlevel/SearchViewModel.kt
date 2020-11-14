@@ -1,10 +1,8 @@
 package io.github.taowata.engineerlevel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.view.View
+import androidx.lifecycle.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import io.github.taowata.engineerlevel.network.*
@@ -34,8 +32,22 @@ class SearchViewModel : ViewModel() {
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage = _errorMessage
 
+    private val hasSearchFinished: MutableLiveData<Boolean>  = MutableLiveData(false)
+    private val isSearching: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    val resultVisibility: LiveData<Int> = hasSearchFinished.map { hasSearchFinished ->
+        if (hasSearchFinished) View.VISIBLE else View.GONE
+    }
+    val progressBarVisibility: LiveData<Int> = isSearching.map { isSearching ->
+        if (isSearching) View.VISIBLE else View.GONE
+    }
+
 
     fun getGitHubUserProperties(userName: String) {
+
+        isSearching.value = true
+        hasSearchFinished.value = false
+
         viewModelScope.launch {
             try {
                 val gitHubUser = GitHubApi.retrofitService.getUser(userName)
@@ -46,6 +58,8 @@ class SearchViewModel : ViewModel() {
                 _contributions.value =  withContext(Dispatchers.IO) {
                     return@withContext GitHubHomeHtmlParser.getContributionNumber("https://github.com/$userName")
                 }
+
+
                 // フォロワー数の取得
                 _followers.value = gitHubUser.followers
 
@@ -54,6 +68,10 @@ class SearchViewModel : ViewModel() {
 
                 _stars.value = allStars
                 _languageAndBytes.value = languageMap
+
+                // viewの反映
+                isSearching.value = false
+                hasSearchFinished.value = true
 
             } catch (e: Exception) {
                 _errorMessage.value = "Failure: ${e.message}"

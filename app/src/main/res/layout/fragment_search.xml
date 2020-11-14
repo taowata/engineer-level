@@ -23,6 +23,7 @@
             android:layout_marginTop="56dp"
             android:text="@{viewModel.gitHubUser.userName.toString()}"
             android:textSize="24sp"
+            android:visibility="@{viewModel.resultVisibility}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +37,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
+            android:visibility="@{viewModel.resultVisibility}"
             app:layout_constraintBottom_toTopOf="@+id/floating_action_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Contribution数"
+            android:visibility="@{viewModel.resultVisibility}"
             app:layout_constraintEnd_toStartOf="@+id/follower_text"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="フォロワー数"
+            android:visibility="@{viewModel.resultVisibility}"
             app:layout_constraintBottom_toTopOf="@+id/language_text"
             app:layout_constraintEnd_toStartOf="@+id/star_text"
             app:layout_constraintHorizontal_bias="0.5"
@@ -68,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="獲得スター数"
+            android:visibility="@{viewModel.resultVisibility}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/follower_text"
@@ -80,6 +85,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:clickable="true"
+            android:visibility="@{viewModel.resultVisibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_baseline_favorite_24" />
@@ -89,6 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.contributions.toString()}"
+            android:visibility="@{viewModel.resultVisibility}"
             app:layout_constraintEnd_toEndOf="@+id/contribution_text"
             app:layout_constraintStart_toStartOf="@+id/contribution_text"
             app:layout_constraintTop_toTopOf="@+id/follower_number" />
@@ -98,6 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.followers.toString()}"
+            android:visibility="@{viewModel.resultVisibility}"
             app:layout_constraintBottom_toTopOf="@+id/language_text"
             app:layout_constraintEnd_toEndOf="@+id/follower_text"
             app:layout_constraintStart_toStartOf="@+id/follower_text"
@@ -109,6 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.stars.toString()}"
+            android:visibility="@{viewModel.resultVisibility}"
             app:layout_constraintEnd_toEndOf="@+id/star_text"
             app:layout_constraintStart_toStartOf="@+id/star_text"
             app:layout_constraintTop_toTopOf="@+id/follower_number" />
@@ -118,6 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="使用言語"
+            android:visibility="@{viewModel.resultVisibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -170,6 +180,17 @@
             app:layout_constraintEnd_toStartOf="@+id/search_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/search_button" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.progressBarVisibility}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
