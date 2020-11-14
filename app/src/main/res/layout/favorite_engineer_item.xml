@@ -6,12 +6,16 @@
         <variable
             name="engineer"
             type="io.github.taowata.engineerlevel.data.Engineer" />
+        <variable
+            name="itemClickAction"
+            type="kotlin.jvm.functions.Function1" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> itemClickAction.invoke(engineer)}">
 
         <TextView
             android:id="@+id/engineer_name"

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.github.taowata.engineerlevel.data.Engineer
 import io.github.taowata.engineerlevel.databinding.FragmentFavoriteListBinding
@@ -29,7 +30,8 @@ class FavoriteListFragment : Fragment() {
         val recyclerView = binding.engineerList
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         val itemClickAction: (Engineer) -> Unit = {
-            // 画面遷移実装 TODO()
+            val view = requireView()
+            view.findNavController().navigate(R.id.action_favoriteListFragment_to_detailFragment)
         }
         val adapter = FavoriteEngineerAdapter(itemClickAction)
         recyclerView.adapter = adapter

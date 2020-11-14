@@ -13,8 +13,9 @@ class FavoriteEngineerAdapter(
     private var engineers: List<Engineer> = mutableListOf()
 
     class FavoriteEngineerViewHolder(private val binding: FavoriteEngineerItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Engineer, onItemClick: (Engineer) -> Unit) {
+        fun bind(item: Engineer, itemClickAction: (Engineer) -> Unit) {
             binding.engineer = item
+            binding.itemClickAction = itemClickAction
             binding.executePendingBindings()
         }
         companion object {
