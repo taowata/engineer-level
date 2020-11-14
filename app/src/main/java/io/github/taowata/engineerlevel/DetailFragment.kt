@@ -19,14 +19,11 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailBinding.inflate(inflater)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+        // 受け取ったEngineerオブジェクトをBind
         val engineer = safeArgs.engineer
+        binding.engineer = engineer
 
-        binding.textView.text = engineer.name
+        return binding.root
     }
 }

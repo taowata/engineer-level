@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="engineer"
+            type="io.github.taowata.engineerlevel.data.Engineer" />
 
     </data>
 
@@ -14,12 +17,108 @@
         tools:context=".DetailFragment">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{engineer.name}"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/language_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="ユーザー名" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="@string/hello_blank_fragment"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/language_text" />
+
+        <TextView
+            android:id="@+id/contribution_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contribution数"
+            app:layout_constraintEnd_toStartOf="@+id/follower_text"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/follower_text" />
+
+        <TextView
+            android:id="@+id/follower_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="フォロワー数"
+            app:layout_constraintBottom_toTopOf="@+id/language_text"
+            app:layout_constraintEnd_toStartOf="@+id/star_text"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/contribution_text"
+            app:layout_constraintTop_toBottomOf="@+id/user_name"
+            app:layout_constraintVertical_bias="0.35" />
+
+        <TextView
+            android:id="@+id/star_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="獲得スター数"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/follower_text"
+            app:layout_constraintTop_toTopOf="@+id/follower_text" />
+
+        <TextView
+            android:id="@+id/contribution_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{engineer.contributions}"
+            app:layout_constraintEnd_toEndOf="@+id/contribution_text"
+            app:layout_constraintStart_toStartOf="@+id/contribution_text"
+            app:layout_constraintTop_toTopOf="@+id/follower_number" />
+
+        <TextView
+            android:id="@+id/follower_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{engineer.followers}"
+            app:layout_constraintBottom_toTopOf="@+id/language_text"
+            app:layout_constraintEnd_toEndOf="@+id/follower_text"
+            app:layout_constraintStart_toStartOf="@+id/follower_text"
+            app:layout_constraintTop_toBottomOf="@+id/follower_text"
+            app:layout_constraintVertical_bias="0.25" />
+
+        <TextView
+            android:id="@+id/star_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{engineer.stars}"
+            app:layout_constraintEnd_toEndOf="@+id/star_text"
+            app:layout_constraintStart_toStartOf="@+id/star_text"
+            app:layout_constraintTop_toTopOf="@+id/follower_number" />
+
+        <TextView
+            android:id="@+id/language_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="使用言語"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <TextView
+            android:id="@+id/error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
