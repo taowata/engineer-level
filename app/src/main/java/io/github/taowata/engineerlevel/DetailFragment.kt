@@ -24,6 +24,9 @@ class DetailFragment : Fragment() {
         val engineer = safeArgs.engineer
         binding.engineer = engineer
 
+        // 棒グラフの描画
+        Drawer.drawBarChart(binding.barChart, engineer.languageAndBytes)
+
         return binding.root
     }
 }
