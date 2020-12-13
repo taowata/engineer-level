@@ -41,7 +41,8 @@ class FavoriteListViewModel : ViewModel() {
                             contributions = data["contributions"].toString().toInt(),
                             followers = data["followers"].toString().toInt(),
                             stars = data["stars"].toString().toInt(),
-                            languageAndBytes = languagesAndByte as HashMap<String, Long>
+                            languageAndBytes = languagesAndByte as HashMap<String, Long>,
+                            avatar_url = data["avatar_url"].toString(),
                         )
                         list.add(engineer)
                     }

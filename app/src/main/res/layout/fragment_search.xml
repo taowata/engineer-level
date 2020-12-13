@@ -192,5 +192,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/icon_image"
+            android:layout_width="103dp"
+            android:layout_height="115dp"
+            app:layout_constraintBottom_toBottomOf="@+id/user_name"
+            app:layout_constraintEnd_toStartOf="@+id/user_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/user_name"
+            tools:srcCompat="@tools:sample/avatars"
+            app:profileImage="@{viewModel.gitHubUser.avatar_url.toString()}"
+            android:visibility="@{viewModel.resultVisibility}" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
