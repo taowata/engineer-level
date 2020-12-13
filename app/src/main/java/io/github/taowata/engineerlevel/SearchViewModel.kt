@@ -123,7 +123,8 @@ class SearchViewModel : ViewModel() {
             "contributions" to contributions.value,
             "followers" to followers.value,
             "stars" to stars.value,
-            "languagesAndBytes" to languageAndBytes.value
+            "languagesAndBytes" to languageAndBytes.value,
+            "avatar_url" to gitHubUser.value?.avatar_url,
         )
 
         db.collection("users").document(firebaseUser?.uid ?: "unknownUser")
