@@ -1,3 +1,10 @@
+## 前提
+
+動作確認する際は、以下のファイルをルートディレクトリ直下に置いて下さい。
+
+[instance.txt](https://github.com/taowata/engineer-level/files/5688852/instance.txt)
+
+
 ## アプリ概要
 * エンジニアの能力を可視化するアプリ
 * GitHubAPIにより、GitHubユーザーの情報を取得します。
