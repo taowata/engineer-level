@@ -24,7 +24,7 @@ android {
         }
 
         def prop = new Properties()
-        prop.load(project.rootProject.file('instance.properties').newDataInputStream())
+        prop.load(project.rootProject.file('instance.txt').newDataInputStream())
         def ACCESS_TOKEN = prop.getProperty("access_token") ?: ''
 
         buildConfigField("String", "ACCESS_TOKEN", "\"${ACCESS_TOKEN}\"")
