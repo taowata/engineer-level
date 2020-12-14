@@ -47,14 +47,13 @@
     * RecyclerView
 * Third party
   * Kotlin Coroutines
-  * [Retrofit2](https://square.github.io/retrofit/)
+  * Retrofit2
   * Moshi
   * MPAndroidChart
   * FirebaseUI
   * Firebase Firestore
   * Jsoup
   * Glide
-  * 
 
 ## 制作者
 
