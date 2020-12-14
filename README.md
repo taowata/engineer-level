@@ -3,26 +3,18 @@
 * GitHubAPIにより、GitHubユーザーの情報を取得します。
 * お気に入りエンジニアを保存することができます
 
-イベント検索 | 保存したイベントのリスト表示 | ユーザー情報登録画面 
----- | ----  | ---- 
-<img src="https://user-images.githubusercontent.com/47232163/91534054-e0b50480-e94b-11ea-9258-9a48b948011b.png" width="320"/>   | <img src="https://user-images.githubusercontent.com/47232163/91534051-e01c6e00-e94b-11ea-846d-526a2eb50e8f.png" width="320"/>  | <img src="https://user-images.githubusercontent.com/57245344/91711359-be77ec80-ebc0-11ea-8170-bf208d915735.png" width="320"/>
+
+ログイン画面 | エンジニア検索 | お気に入りエンジニアリスト | お気に入りしたエンジニアの詳細画面 
+---- | ---- | ----  | ---- 
+<img src="https://user-images.githubusercontent.com/47232163/91534054-e0b50480-e94b-11ea-9258-9a48b948011b.png" width="320"/>   | <img src="https://user-images.githubusercontent.com/47232163/91534054-e0b50480-e94b-11ea-9258-9a48b948011b.png" width="320"/>   | <img src="https://user-images.githubusercontent.com/47232163/91534051-e01c6e00-e94b-11ea-846d-526a2eb50e8f.png" width="320"/>  | <img src="https://user-images.githubusercontent.com/57245344/91711359-be77ec80-ebc0-11ea-8170-bf208d915735.png" width="320"/>
 
 ## 機能
 
 * イベント検索
-
-  検索窓からイベントの検索ができます。
-
 * お気に入りワードをデフォルトで検索
-
-  アプリ起動直後は端末に保存したお気に入りワードで検索されたイベントが表示されるようにしています。
-
-* 検索結果のリスト表示
-
-
+* 検索結果のリスト表
 * お気に入りイベント保存・削除
 *  保存したイベントのリスト表示
-
 * ユーザー情報登録画面
 * お気に入りワード登録
 
