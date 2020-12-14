@@ -34,7 +34,6 @@
     * Lifecycles
     * LiveData
     * Navigation
-    * Room
     * ViewModel
   * UI
     * Fragment
