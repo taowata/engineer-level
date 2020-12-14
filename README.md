@@ -49,8 +49,3 @@
   * Jsoup
   * Glide
 
-## 制作者
-
-[@taowata](https://github.com/taowata)
-
-[@syuheifujita](syuheifujita)
